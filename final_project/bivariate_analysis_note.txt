@@ -1,0 +1,29 @@
+salary and bonus
+	Apply PCA
+salary and long_term_incentive
+salary and total_payments
+salary and exercised_stock_options
+salary and shared_receipt_with_poi
+salary and expenses
+salary and tota_stock_value
+salary and resticted_stock
+salary and loan_advances
+salary and from_this_person_to_poi
+salary and from_poi_to_this_person
+from_this_person_to_poi and from_poi_to_this_person
+
+
+TODO: create another tester.py file and print out only precision accuray and recall values and return it as array.
+DONE: created tester_edited.py
+
+removed features that won't be helpful.
+New list:
+	'salary',
+	'exercised_stock_options',
+	'bonus',
+	'restricted_stock',
+	'total_stock_value',
+	'expenses',
+	'from_poi_to_this_person',
+	'long_term_incentive',
+	'poi'

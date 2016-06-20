@@ -41,6 +41,7 @@ def test_classifier(clf, dataset, feature_list, folds = 1000,
     true_positives = 0
     false_positives = 0
 
+    best_params_collector = {}
     for train_idx, test_idx in cv: 
         features_train = []
         features_test  = []
@@ -60,10 +61,15 @@ def test_classifier(clf, dataset, feature_list, folds = 1000,
         ### fit the classifier using training set, and test on test set
         clf.fit(features_train, labels_train)
         try:
-            print "Best Params"
             print clf.best_params_
+            for k,v in clf.best_params_.iteritems():
+                if k in best_params_collector:
+                    best_params_collector[k].append(v)
+                else:
+                    best_params_collector[k] = [v]
         except:
             pass
+            
         predictions = clf.predict(features_test)
         for prediction, truth in zip(predictions, labels_test):
             ### Assign prediction either 0 or 1
@@ -109,7 +115,7 @@ def test_classifier(clf, dataset, feature_list, folds = 1000,
             print RESULTS_FORMAT_STRING.format(total_predictions, true_positives, false_positives, false_negatives, true_negatives)
             print ""
 
-        return [accuracy, precision, recall]
+        return [accuracy, precision, recall, best_params_collector]
     except:
         print "Got a divide by zero when trying out:", clf
         print "Precision or recall may be undefined due to a lack of true positive predicitons.\n"

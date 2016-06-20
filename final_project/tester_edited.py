@@ -59,8 +59,11 @@ def test_classifier(clf, dataset, feature_list, folds = 1000,
         
         ### fit the classifier using training set, and test on test set
         clf.fit(features_train, labels_train)
-        print "Best Params"
-        print clf.best_params_
+        try:
+            print "Best Params"
+            print clf.best_params_
+        except:
+            pass
         predictions = clf.predict(features_test)
         for prediction, truth in zip(predictions, labels_test):
             ### Assign prediction either 0 or 1

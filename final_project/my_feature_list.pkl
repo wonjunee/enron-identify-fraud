@@ -1,6 +1,8 @@
 (lp0
 S'poi'
 p1
-aS'long_term_incentive'
+aS'bonus'
 p2
+aS'exercised_stock_options'
+p3
 a.

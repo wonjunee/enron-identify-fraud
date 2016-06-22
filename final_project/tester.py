@@ -46,6 +46,10 @@ def test_classifier(clf, dataset, feature_list, folds = 1000):
         clf.fit(features_train, labels_train)
         predictions = clf.predict(features_test)
         for prediction, truth in zip(predictions, labels_test):
+            if prediction < .5:
+                prediction = 0
+            else:
+                prediction = 1
             if prediction == 0 and truth == 0:
                 true_negatives += 1
             elif prediction == 0 and truth == 1:

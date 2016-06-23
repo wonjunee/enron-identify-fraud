@@ -11,7 +11,7 @@ from tester import dump_classifier_and_data
 ### Task 1: Select what features you'll use.
 ### features_list is a list of strings, each of which is a feature name.
 ### The first feature must be "poi".
-features_list = ['poi','bonus','eso_deferred_income'] # You will need to use more features
+features_list = ['poi','director_fees','eso_deferred_income'] # You will need to use more features
 
 ### Load the dictionary containing the dataset
 with open("final_project_dataset.pkl", "r") as data_file:
@@ -28,48 +28,18 @@ for k,v in data_dict.iteritems():
 
 print len(my_dataset)
 
-es = []
-di = []
 for k,v in my_dataset.iteritems():
-	if v["exercised_stock_options"] == "NaN":
-		es.append(0.0)
-	else:	
-		es.append(float(v["exercised_stock_options"]))
+    di = (v["deferred_income"])
+    es = (v["exercised_stock_options"])
 
-	if v["deferred_income"] == "NaN":
-		di.append(0.0)
-	else:
-		di.append(float(v["deferred_income"]))
-
-es = np.array(es)
-es = np.reshape(es, [145,1])
-
-di = np.array(di)
-di = np.reshape(di, [145,1])
-
-### Rescale each feature
-from sklearn.preprocessing import MinMaxScaler
-min_max_scaler = MinMaxScaler()
-
-### deferred_income
-di = min_max_scaler.fit_transform(di) 
-
-### exercised_stock_options
-es = min_max_scaler.fit_transform(es) 
-
-### Creating a new feature - eso_expenses
-tmp_array = np.empty([145,1])
-for i in range(145):
-    ### If both values are zero then set it 0
-    if di[i] * es[i] == 0:
-        tmp_array[i,0] = 0
+    if di == "NaN" or es == "NaN":
+        v["eso_deferred_income"] = 0.0
+    elif di*es == 0:
+        v["eso_deferred_income"] = 0.0
     else:
-        tmp_array[i,0] = np.power(es[i] / di[i], .2) * np.power(di[i]*di[i] + es[i]*es[i], .5)
-
-i = 0
-for k,v in my_dataset.iteritems():
-	my_dataset[k]["eso_deferred_income"] = tmp_array[i]
-	i += 1
+        es = float(es)
+        di = float(di)
+        v["eso_deferred_income"] = np.log(np.abs(es/di) * np.power(di*di + es*es, .2))
 
 ### Extract features and labels from dataset for local testing
 data = featureFormat(my_dataset, features_list, sort_keys = True)
@@ -83,9 +53,16 @@ labels, features = targetFeatureSplit(data)
 
 # Provided to give you a starting point. Try a variety of classifiers.
 
+### Rescale each feature
+from sklearn.preprocessing import MinMaxScaler
+min_max_scaler = MinMaxScaler()
+
 ### Set the classifier
-from sklearn.neighbors import KNeighborsRegressor
-clf = KNeighborsRegressor(n_neighbors=3, weights='uniform', algorithm='auto')
+from sklearn import tree
+clf = tree.DecisionTreeClassifier()
+clf.set_params(min_samples_split=2)
+from sklearn.pipeline import Pipeline
+clf = Pipeline(steps=[('minmaxer', min_max_scaler), ('clf', clf)])
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall 
 ### using our testing script. Check the tester.py script in the final project

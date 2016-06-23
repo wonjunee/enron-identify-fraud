@@ -1,8 +1,6 @@
 (lp0
 S'poi'
 p1
-aS'exercised_stock_options'
+aS'long_term_incentive'
 p2
-aS'total_stock_value'
-p3
 a.

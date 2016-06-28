@@ -1,8 +1,6 @@
 (lp0
 S'poi'
 p1
-aS'director_fees'
+aS'long_term_incentive'
 p2
-aS'eso_deferred_income'
-p3
 a.

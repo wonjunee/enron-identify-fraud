@@ -14,7 +14,8 @@
 - **.pkl** files contain the data that are generated from **final_project_v3.ipynb**.
 - **old_projects** folder contains the old versions of the final project.
 
-### Note: This is the second version of the final project. Below is the list of updates I made.
+---
+### Notes: Updates for second version of the final project.
 
 - Created a new feature "eso_deferred_income" = deferred_income / exercised_stock_options
 - Used **SelectKBest** and **feature importances** in **Decision Tree** to filter the low ranking features.

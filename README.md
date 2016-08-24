@@ -1,11 +1,18 @@
 # Identify Fraud from Enron Data
 ## Final Project of Machine Learning Course
 ## Udacity Data Analyst Nanodegree
-### Final project can be found in final_project folder.
-- **final_project.html**: This document contains the details of what I did for the final project.
-- **final_project_v2.ipynb**: This is the second version of the jupyter notebook file of the final project.
+### Final project can be found in final_project_raw_file and final_project folders.
+
+#### In final_project folder
+- This folder only contains the final report of my machine learning project.
+
+#### In final_project_raw_file folder
+- **final_project.html**: HTML version of the final project
+- **final_project_v3.ipynb**: This is the third version of the jupyter notebook file of the final project. 
 - **poi_id.py**: It contains the features and a classifier I choose for finding person of interest (POI) in the enron data set.
 - **tester.py**: Accuracy, precision and recall can be calculated with this script.
+- **.pkl** files contain the data that are generated from **final_project_v3.ipynb**.
+- **old_projects** folder contains the old versions of the final project.
 
 ### Note: This is the second version of the final project. Below is the list of updates I made.
 
